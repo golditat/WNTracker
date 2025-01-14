@@ -4,9 +4,10 @@ import androidx.room.TypeConverters
 import androidx.room.Database
 @Database(
     entities = [ExerciseEntity::class],
-    version = 1
+    version = 1,
+    exportSchema = false
 )
-@TypeConverters( )
+@TypeConverters()
 abstract class AppDatabase : RoomDatabase(){
-    abstract fun exerciseDao():ExerciseDao
+    abstract val exerciseDao:ExerciseDao
 }

@@ -36,6 +36,6 @@ object AppModule {
     @Provides
     @Singleton
     fun provideExerciseDao(db: AppDatabase): ExerciseDao {
-        return db.exerciseDao()
+        return db.exerciseDao
     }
 }
