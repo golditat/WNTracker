@@ -4,7 +4,8 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android) apply false
     alias(libs.plugins.android.library) apply false
     alias(libs.plugins.jetbrains.kotlin.kapt) apply false
-    id("com.google.gms.google-services") version "4.4.2" apply false
-    id("com.google.firebase.crashlytics") version "3.0.2" apply false
-    id("com.google.firebase.firebase-perf") version "1.4.2" apply false
+    alias(libs.plugins.google.services) apply false
+    alias(libs.plugins.firebase.crashlytics) apply false
+    alias(libs.plugins.firebase.pref) apply false
+    alias(libs.plugins.hilt.android) apply false
 }

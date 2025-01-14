@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.jetbrains.kotlin.kapt)
+    alias(libs.plugins.hilt.android)
 }
 
 android {
@@ -34,25 +35,27 @@ android {
 
 dependencies {
 
-    // AndroidX
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
 
-    // Kotlin Coroutines
     implementation(libs.kotlinx.coroutines.core)
 
-    // Dependency Injection (если нужно)
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
 
-    // Логирование
     implementation(libs.timber)
 
-    // Тестирование
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
     testImplementation(libs.truth)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.serialization)
+    implementation(libs.retrofit.gson.converter)
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.logging.interceptor)
+    implementation(libs.room.runtime)
+    kapt(libs.room.compiler)
 }
