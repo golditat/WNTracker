@@ -1,19 +1,26 @@
 [versions]
 agp = "8.5.0"
-kotlin = "1.9.0"
-kapt = "2.1.20-Beta1"
-coreKtx = "1.13.1"
-junit = "4.13.2"
-junitVersion = "1.2.1"
-espressoCore = "3.6.1"
 appcompat = "1.7.0"
-material = "1.12.0"
 activity = "1.8.0"
+coreKtx = "1.13.1"
 constraintlayout = "2.1.4"
 coroutines = "1.7.3"
+compose = "1.5.1"
+coil = "2.4.0"
+espressoCore = "3.6.1"
+firebase-bom = "32.2.0"
+junit = "4.13.2"
+junitVersion = "1.2.1"
 hilt = "2.44.2"
-timber = "5.0.1"
+kotlin = "1.9.0"
+kapt = "2.1.20-Beta1"
+material = "1.12.0"
 mockk = "1.13.5"
+okhttp = "4.11.0"
+retrofit = "2.9.0"
+room = "2.5.1"
+serialization-converter = "0.8.0"
+timber = "5.0.1"
 truth = "1.1.5"
 
 [libraries]
@@ -37,6 +44,27 @@ timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "tim
 # Testing
 mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 truth = { group = "com.google.truth", name = "truth", version.ref = "truth" }
+
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+retrofit-serialization = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "serialization-converter" }
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
+okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
+
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
+firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
+firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics" }
+firebase-perf = { group = "com.google.firebase", name = "firebase-perf" }
+firebase-auth = { group = "com.google.firebase", name = "firebase-auth" }
+
+compose-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "compose" }
+compose-material = { group = "androidx.compose.material", name = "material", version.ref = "compose" }
+compose-activity = { group = "androidx.activity", name = "activity-compose", version.ref = "activity" }
+coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
