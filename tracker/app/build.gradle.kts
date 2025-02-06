@@ -4,21 +4,22 @@ plugins {
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
     alias(libs.plugins.firebase.pref)
-    alias(libs.plugins.jetbrains.kotlin.kapt)
+    alias(libs.plugins.ksp)
     alias(libs.plugins.hilt.android)
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
     namespace = "com.example.wntracker"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.wntracker"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
-
+        buildConfigField("String", "WGER_API_KEY", "\"${project.properties["WGER_API_KEY"]}\"")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -38,10 +39,17 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures {
+        buildConfig = true
+        compose = true
+    }
 }
 
 dependencies {
-
+    implementation(project(":core"))
+    implementation(project(":feature_auth"))
+    implementation(project(":feature_nutritiontest"))
+    implementation(project(":feature_userhome"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -58,5 +66,11 @@ dependencies {
     implementation(libs.firebase.auth)
 
     implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
+    ksp(libs.hilt.compiler)
+
+    implementation(libs.compose.material)
+    implementation(libs.compose.ui)
+    implementation(libs.compose.runtime)
+    implementation(libs.compose.navigation)
+    implementation(libs.hilt.navigation.compose)
 }

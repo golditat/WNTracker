@@ -1,17 +1,18 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.jetbrains.kotlin.kapt)
+    alias(libs.plugins.ksp)
     alias(libs.plugins.hilt.android)
+    alias(libs.plugins.kt.serialization)
 }
 
 android {
     namespace = "com.example.core"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 24
-
+        buildConfigField("String", "WGER_API_KEY", "\"${project.properties["WGER_API_KEY"]}\"")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -25,11 +26,14 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = "1.8"
+    }
+    buildFeatures {
+        buildConfig = true
     }
 }
 
@@ -42,7 +46,7 @@ dependencies {
     implementation(libs.kotlinx.coroutines.core)
 
     implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
+    ksp(libs.hilt.compiler)
 
     implementation(libs.timber)
 
@@ -57,5 +61,8 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging.interceptor)
     implementation(libs.room.runtime)
-    kapt(libs.room.compiler)
+    implementation(libs.room.ktx)
+    implementation(libs.kotlinx.metadata.jvm)
+    implementation(libs.kotlinx.serialization)
+    ksp(libs.room.compiler)
 }
