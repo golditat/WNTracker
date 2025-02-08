@@ -16,9 +16,14 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven("https://jitpack.io")
     }
 }
 
 rootProject.name = "W&NTracker"
 include(":app")
 include(":core")
+include(":feature_auth")
+include(":feature_nutritiontest")
+include(":feature_userhome")
+include(":feature_nutritiontracker")
