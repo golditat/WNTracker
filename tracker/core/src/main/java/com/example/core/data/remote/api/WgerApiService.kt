@@ -1,6 +1,7 @@
 package com.example.core.data.remote.api
 
 
+import com.example.core.data.local.utils.PagedResponse
 import com.example.core.data.remote.dto.AuthResponseDTO
 import com.example.core.data.remote.dto.EquipmentDTO
 import com.example.core.data.remote.dto.ExerciseDTO
@@ -8,10 +9,12 @@ import com.example.core.data.remote.dto.ExerciseImageDTO
 import com.example.core.data.remote.dto.ExerciseVideoDTO
 import com.example.core.data.remote.dto.IngredientDTO
 import com.example.core.data.remote.dto.LoginRequestDTO
-import com.example.core.data.remote.dto.MealDTO
-import com.example.core.data.remote.dto.NutritionPlanDTO
-import com.example.core.data.remote.dto.NutritionRequestDTO
-import com.example.core.data.remote.dto.NutritionResponseDTO
+import com.example.core.data.remote.dto.MealRequestDTO
+import com.example.core.data.remote.dto.MealResponseDTO
+import com.example.core.data.remote.dto.NutritionDiaryRequestDTO
+import com.example.core.data.remote.dto.NutritionDiaryResponseDTO
+import com.example.core.data.remote.dto.NutritionPlanRequestDTO
+import com.example.core.data.remote.dto.NutritionPlanResponseDTO
 import com.example.core.data.remote.dto.RefreshTokenRequestDTO
 import com.example.core.data.remote.dto.WeightEntryDTO
 import retrofit2.Response
@@ -51,18 +54,32 @@ interface WgerApiService {
     @GET("video/")
     suspend fun getExerciseVideos(@Query("exercise") exerciseId: Int): ExerciseVideoDTO
 
-    @GET("nutritionplan/")
-    suspend fun getNutritionPlans(): NutritionPlanDTO
+    @POST("nutritionplan/")
+    suspend fun createNutritionPlan(@Body plan: NutritionPlanRequestDTO): Response<NutritionPlanResponseDTO>
 
-    @GET("ingredient/{id}")
+    @GET("ingredient/{id}/get_values/")
     suspend fun getIngredient(@Query("id") id: Int): IngredientDTO
-
-    @GET("meal/")
-    suspend fun getMeals(): MealDTO
 
     @GET("weightentry/")
     suspend fun getWeightEntries(): WeightEntryDTO
 
-    @POST("nutrition/calculate")
-    suspend fun calculateCalories(@Body request: NutritionRequestDTO): NutritionResponseDTO
+    @GET("nutritiondiary/")
+    suspend fun getNutritionDiary(
+        @Query("datetime__date") date: String
+    ): Response<PagedResponse<NutritionDiaryResponseDTO>>
+
+    @POST("nutritiondiary/")
+    suspend fun createNutritionDiary(
+        @Body request: NutritionDiaryRequestDTO
+    ): Response<NutritionDiaryResponseDTO>
+
+    @GET("meal/")
+    suspend fun getMeals(
+        @Query("nutrition_plan") planId: Int
+    ): Response<PagedResponse<MealResponseDTO>>
+
+    @POST("meal/")
+    suspend fun createMeal(
+        @Body request: MealRequestDTO
+    ): Response<MealResponseDTO>
 }

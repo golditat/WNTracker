@@ -49,6 +49,7 @@ dependencies {
     implementation(project(":core"))
     implementation(project(":feature_auth"))
     implementation(project(":feature_nutritiontest"))
+    implementation(project(":feature_nutritiontracker"))
     implementation(project(":feature_userhome"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

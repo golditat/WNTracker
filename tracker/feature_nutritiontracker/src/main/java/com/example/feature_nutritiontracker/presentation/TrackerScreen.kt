@@ -2,14 +2,15 @@ package com.example.feature_nutritiontracker.presentation
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import com.example.core.domain.model.Meal
 import com.example.core.domain.model.UserProgress
 import com.example.feature_nutritiontracker.utils.Macros
 import com.github.tehras.charts.piechart.PieChart
@@ -17,9 +18,10 @@ import com.github.tehras.charts.piechart.PieChartData
 import com.github.tehras.charts.piechart.animation.simpleChartAnimation
 
 @Composable
-fun TrackerScreen(viewModel: TrackerViewModel = viewModel()) {
+fun TrackerScreen(viewModel: TrackerViewModel, navController: NavController) {
     val cpfc by viewModel.macronutrientState.observeAsState( Macros(0,0,0,0))
-    val total by viewModel.totalNutrients.observeAsState(UserProgress(0,0,0,0,0,0,0))
+    val total by viewModel.totalNutrients.observeAsState(UserProgress(0,0,0,0,0,0,0, 0))
+    val mealsMap by viewModel.mealsMap.collectAsState()
     viewModel.loadMacros()
     viewModel.getTotalMacros()
 
@@ -49,10 +51,11 @@ fun TrackerScreen(viewModel: TrackerViewModel = viewModel()) {
         Spacer(modifier = Modifier.height(16.dp))
 
         LazyColumn(modifier = Modifier.fillMaxSize()) {
-            //items(meals) { meal ->
-            //    MealItem(meal = meal)
-            //}
+            items(mealsMap.size) { meal ->
+               MealItem(meal = mealsMap.get(meal)?: emptyList())
+            }
         }
+        AddMealFAB( {navController.navigate("add")})
     }
 }
 
@@ -68,4 +71,32 @@ fun MacronutrientPieChart(protein: Double, fat: Double, carbs: Double) {
         modifier = Modifier.size(200.dp),
         animation = simpleChartAnimation()
     )
+}
+
+@Composable
+fun MealItem(meal: List<Meal>) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp),
+        elevation = 4.dp
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            meal.forEach { ingredient ->
+                Text("${ingredient}: ${ingredient.calories * (ingredient.weightUnit?:1)} ккал")
+            }
+        }
+    }
+}
+@Composable
+fun AddMealFAB(onClick: () -> Unit) {
+    FloatingActionButton(
+        onClick = onClick,
+        modifier = Modifier
+            .padding(16.dp)
+            .size(56.dp),
+        shape = CircleShape
+    ) {
+        Text(text = "Add")
+    }
 }

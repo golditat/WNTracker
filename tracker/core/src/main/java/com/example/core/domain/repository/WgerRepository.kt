@@ -6,14 +6,16 @@ import com.example.core.data.local.dao.ExerciseVideoDao
 import com.example.core.data.local.entity.ExerciseEntity
 import com.example.core.data.local.entity.ExerciseImageEntity
 import com.example.core.data.local.entity.ExerciseVideoEntity
+import com.example.core.data.local.utils.PagedResponse
 import com.example.core.data.remote.api.WgerApiService
 import com.example.core.data.remote.dto.ExerciseDTO
 import com.example.core.data.remote.dto.ExerciseImageDTO
 import com.example.core.data.remote.dto.ExerciseVideoDTO
 import com.example.core.data.remote.dto.IngredientDTO
-import com.example.core.data.remote.dto.MealDTO
+import com.example.core.data.remote.dto.MealResponseDTO
 import com.example.core.data.remote.dto.WeightEntryDTO
 import kotlinx.coroutines.flow.Flow
+import retrofit2.Response
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -28,7 +30,7 @@ class WgerRepository @Inject constructor(
     suspend fun getExercises(): List<ExerciseDTO> = apiService.getExercises()
     suspend fun getExerciseImages(id:Int): ExerciseImageDTO = apiService.getExerciseImages(id)
     suspend fun getExerciseVideos(id:Int): ExerciseVideoDTO = apiService.getExerciseVideos(id)
-    suspend fun getMeal(): MealDTO = apiService.getMeals()
+    suspend fun getMeals(id:Int): Response<PagedResponse<MealResponseDTO>> = apiService.getMeals(id)
     suspend fun getIngredients(id:Int): IngredientDTO = apiService.getIngredient(id)
     suspend fun getWeightEntries(): WeightEntryDTO = apiService.getWeightEntries()
 

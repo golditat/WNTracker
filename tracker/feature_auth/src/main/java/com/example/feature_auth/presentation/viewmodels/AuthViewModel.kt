@@ -5,13 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.core.domain.repository.AuthRepository
+import com.example.core.domain.usecase.LoginUsecase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class AuthViewModel @Inject constructor(
-    private val repository: AuthRepository
+    private val usecase: LoginUsecase
 ) : ViewModel() {
 
     private val _authState = MutableLiveData<Result<String>>()
@@ -20,14 +21,7 @@ class AuthViewModel @Inject constructor(
 
     fun login(username: String, password: String) {
         viewModelScope.launch {
-            val result = repository.login(username, password)
-            _authState.postValue(result)
-        }
-    }
-
-    fun refreshToken() {
-        viewModelScope.launch {
-            val result = repository.refreshToken()
+            val result = usecase(username, password)
             _authState.postValue(result)
         }
     }

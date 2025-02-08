@@ -9,6 +9,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.feature_auth.presentation.viewmodels.AuthViewModel
 import com.example.feature_nutritiontest.presentation.viewmodels.NutritionTestViewModel
+import com.example.feature_nutritiontracker.presentation.TrackerViewModel
 import com.example.feature_userhome.presentation.viewmodels.ProgressViewModel
 import com.example.wntracker.presentation.AppNavHost
 import com.google.firebase.crashlytics.FirebaseCrashlytics
@@ -31,7 +32,8 @@ class MainActivity : AppCompatActivity() {
             val viewModel: AuthViewModel = hiltViewModel()
             val nutririonvm:NutritionTestViewModel = hiltViewModel()
             val progrvw:ProgressViewModel = hiltViewModel()
-            AppNavHost(viewModel = viewModel, nutririonvm, progrvw)
+            val traclervm:TrackerViewModel = hiltViewModel()
+            AppNavHost(viewModel = viewModel, nutririonvm, progrvw, traclervm)
         }
     }
 }

@@ -41,4 +41,10 @@ abstract class RepositoryModule {
     abstract fun bindHistoryRepository(
         impl: HistoryRepositoryImpl
     ): HistoryRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindNutritionPlanRepository(
+        impl: NutritionRepositoryImpl
+    ): NutritionRepository
 }

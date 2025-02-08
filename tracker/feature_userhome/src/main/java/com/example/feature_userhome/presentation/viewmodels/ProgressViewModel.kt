@@ -7,6 +7,8 @@ import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.example.core.domain.model.History
 import com.example.core.domain.repository.HistoryRepository
+import com.example.core.domain.usecase.GetHistoryUseCase
+import com.example.core.domain.usecase.SaveHistoryUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.util.Date
@@ -14,17 +16,19 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProgressViewModel @Inject constructor(
-    private val repository: HistoryRepository
+    private val getHistoryUseCase: GetHistoryUseCase,
+    private val saveHistoryUseCase: SaveHistoryUseCase
 ) : ViewModel() {
 
-    val weightHistory: LiveData<List<History>> = liveData { getHistory()}
-
+    val weightHistory: LiveData<List<History>> get() = _currentHistory
+    private val _currentHistory = MutableLiveData<List<History>>()
     private val _currentWeight = MutableLiveData<Float>()
     val currentWeight: LiveData<Float> get() = _currentWeight
 
-    suspend fun getHistory(): List<History> {
-        var history: List<History> = repository.getHistory()
-        return history
+    fun getHistory(){
+        viewModelScope.launch {
+           _currentHistory.value = getHistoryUseCase()
+        }
     }
     fun addWeight(weight: Int){
         viewModelScope.launch {
@@ -34,6 +38,6 @@ class ProgressViewModel @Inject constructor(
     }
 
     suspend fun saveHistory(date: Date) {
-       repository.saveHistory(History(0,(_currentWeight.value?.toInt()?:0), date.toString()))
+       saveHistoryUseCase(History(0,(_currentWeight.value?.toInt()?:0), date.toString()))
     }
 }

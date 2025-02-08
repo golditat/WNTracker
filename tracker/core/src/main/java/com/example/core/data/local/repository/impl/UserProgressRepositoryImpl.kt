@@ -16,6 +16,7 @@ class UserProgressRepositoryImpl @Inject constructor(
             UserProgress(
                 id = this.id,
                 weight = this.weight,
+                planid = this.planid,
                 height = this.height,
                 calories = this.calories,
                 proteins = this.proteins,
@@ -29,6 +30,7 @@ class UserProgressRepositoryImpl @Inject constructor(
         dao.insertUserProgress(
             UserProgressEntity(
                 weight = progress.weight,
+                planid = progress.planid,
                 height = progress.height,
                 calories = progress.calories,
                 proteins = progress.proteins,
@@ -43,6 +45,7 @@ class UserProgressRepositoryImpl @Inject constructor(
             UserProgressEntity(
                 id = progress.id,
                 weight = progress.weight,
+                planid = progress.planid,
                 height = progress.height,
                 calories = progress.calories,
                 proteins = progress.proteins,

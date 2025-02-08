@@ -3,10 +3,17 @@ package com.example.core.data.remote.dto
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class MealDTO(
-    val id: Int,
+data class MealRequestDTO(
+    val time: String,
     val name: String,
-    val ingredients: List<Int>, // Список ID ингредиентов
-    val description: String?,
-    val day:String?
+    val plan:Int
+)
+
+@Serializable
+data class MealResponseDTO(
+    val id:Int,
+    val time: String,
+    val name: String,
+    val plan:Int,
+    val order:Int,
 )

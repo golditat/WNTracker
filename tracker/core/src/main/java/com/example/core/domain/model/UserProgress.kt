@@ -5,6 +5,7 @@ import java.util.Date
 data class UserProgress(
     val id: Int,
     val weight: Int,
+    val planid:Int,
     val height: Int,
     val calories: Int,
     val proteins: Int,

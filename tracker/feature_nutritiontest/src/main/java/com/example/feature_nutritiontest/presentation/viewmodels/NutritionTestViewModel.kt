@@ -5,8 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
+import com.example.core.data.remote.dto.NutritionPlanRequestDTO
 import com.example.core.domain.model.UserProgress
+import com.example.core.domain.repository.NutritionRepository
 import com.example.core.domain.repository.UserProgressRepository
+import com.example.core.domain.usecase.AddUserProgressUseCase
+import com.example.core.domain.usecase.CreateNutritionPlanUseCase
 import com.example.feature_nutritiontest.utils.Nutrition
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -14,7 +18,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NutritionTestViewModel @Inject constructor(
-    private val repository: UserProgressRepository
+    private val cupUC: AddUserProgressUseCase,
+    private val createnpUC: CreateNutritionPlanUseCase
 ) : ViewModel() {
 
     private val _currentStep = MutableLiveData(0)
@@ -74,7 +79,11 @@ class NutritionTestViewModel @Inject constructor(
         val fats = ((calories * fatPercent) / 9).toInt()
         val carbs = ((calories * carbPercent) / 4).toInt()
         viewModelScope.launch {
-            repository.insertUserProgress(UserProgress(0,(_weight.value?.toInt()?:0), (_height.value?.toInt()?:0), calories, protein, fats, carbs))
+            val result = createnpUC(NutritionPlanRequestDTO(_goal.value?:"Plan", goal_energy = calories, goal_protein = protein, goal_carbohydrates = carbs, goal_fat = fats ))
+            result.onSuccess {
+                cupUC(UserProgress(0, weight = (_weight.value?.toInt()?:0), planid = (result.getOrNull()?.id?:0), height = (_height.value?.toInt()?:0), calories = calories, proteins = protein, fats = fats, carbs = carbs))
+            }
+
         }
         return Nutrition(calories, protein, fats, carbs)
     }

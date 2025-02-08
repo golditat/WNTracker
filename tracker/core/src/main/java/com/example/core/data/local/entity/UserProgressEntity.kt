@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 data class UserProgressEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val weight: Int,
+    val planid:Int,
     val height: Int,
     val calories:Int,
     val proteins:Int,

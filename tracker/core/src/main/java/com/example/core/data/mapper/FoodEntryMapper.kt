@@ -2,7 +2,6 @@ package com.example.core.data.mapper
 
 import com.example.core.data.local.entity.FoodEntryEntity
 import com.example.core.data.remote.dto.IngredientDTO
-import com.example.core.data.remote.dto.MealDTO
 import com.example.core.domain.model.FoodEntry
 import com.example.core.domain.repository.WgerRepository
 
@@ -18,6 +17,7 @@ fun FoodEntryEntity.toDomain():FoodEntry{
     )
 }
 
+/*
 suspend fun MealDTO.toFoodEntryEntity(repository: WgerRepository): FoodEntryEntity {
     val mealItems: List<IngredientDTO> = this.ingredients.map { repository.getIngredients(it) }
 
@@ -35,4 +35,4 @@ suspend fun MealDTO.toFoodEntryEntity(repository: WgerRepository): FoodEntryEnti
         carbs = totalCarbs.toFloat(),
         mealTime = this.day ?: "ERROR"
     )
-}
+}*/

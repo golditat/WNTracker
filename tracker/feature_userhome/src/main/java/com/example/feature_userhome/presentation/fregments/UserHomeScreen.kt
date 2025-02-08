@@ -3,8 +3,10 @@ package com.example.feature_userhome.presentation.fregments
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
 import androidx.compose.material.OutlinedTextField
@@ -52,6 +54,7 @@ fun UserHomeScreen(viewModel: ProgressViewModel) {
         Button(onClick = {
             newWeight.toFloatOrNull()?.let {
                 viewModel.addWeight(it.toInt())
+                viewModel.getHistory()
                 newWeight = ""
             }
         }) {
@@ -77,10 +80,10 @@ fun WeightChart(weightHistory: List<History>) {
                 lineDrawer = SolidLineDrawer()
             )
         ),
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxWidth().height(300.dp),
         animation = simpleChartAnimation(),
         pointDrawer = FilledCircularPointDrawer(),
         horizontalOffset = 5f,
-        labels = weightHistory.map { it.toString() }
+        labels = weightHistory.map { it.date }
     )
 }
